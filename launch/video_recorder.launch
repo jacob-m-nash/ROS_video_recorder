@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="video_recorder" name="video_recorder_node" type="video_recorder_node" output="screen">
+        <!-- Folder to save videos to -->
+        <param name="video_file_path" type="str" value="$(find video_recorder)/output"/>
+    </node>
+</launch>
