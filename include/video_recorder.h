@@ -20,6 +20,7 @@ public:
     video_recorder(ros::NodeHandle nh);
     
     void start_recording();
+    void stop_recording();
    
 };
 

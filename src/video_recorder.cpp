@@ -15,9 +15,21 @@ video_recorder::video_recorder(ros::NodeHandle nh)
 
 void video_recorder::start_recording()
 {
+    if(bag_.isOpen()){
+        ROS_INFO("Bag already open/recording.")
+        return
+    }
     std::string video_name = create_file();
     bag_.open(video_name, rosbag::bagmode::Write);
     cam_sub_ = nh_.subscribe("/camera/rgb/image_raw",1,&video_recorder::cameraCallback, this);
+    ROS_INFO("Recording starting into file %s",video_name);
+}
+
+void video_recorder::stop_recording()
+{
+    cam_sub_.shutdown();
+    bag_.close();
+    ROS_INFO("Recording Stoped");
 }
 
 void video_recorder::cameraCallback(const sensor_msgs::Image::ConstPtr &msg)
